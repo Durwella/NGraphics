@@ -128,8 +128,16 @@ namespace NGraphics.Custom.Parsers
 			font.Size = fontSize;
 		  var textAlignment = TextParser.ReadTextAlignment(e);
 
-          element = new Text(text, new Rect(new Point(x, y), new Size(double.MaxValue, double.MaxValue)), font,
-            textAlignment, pen, baseBrush);
+          Text txt;
+          if (e.HasElements) {
+             txt = new Text (new Rect (new Point (x, y), new Size (double.MaxValue, double.MaxValue)), font,
+                textAlignment, pen, baseBrush);
+             TextParser.ReadTextSpans (txt, e);
+          } else {
+             txt = new Text (e.Value.Trim (), new Rect (new Point (x, y), new Size (double.MaxValue, double.MaxValue)), font,
+                textAlignment, pen, baseBrush);
+          }
+          element = txt;
         }
           break;
         case "rect":
@@ -203,8 +211,8 @@ namespace NGraphics.Custom.Parsers
         case "namedview":
         case "metadata":
         case "SVGTestCase":
-		case "switch":
-			break;
+      case "switch":
+         break;
         default:
           throw new NotSupportedException("SVG element \"" + e.Name.LocalName + "\" is not supported");
       }

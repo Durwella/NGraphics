@@ -19,6 +19,7 @@ namespace NGraphics.Custom.Models
 
         public static readonly Size Zero = new Size();
         public static readonly Size One = new Size(1);
+		public static readonly Size MaxValue = new Size (double.MaxValue, double.MaxValue);
         public double Height;
         public double Width;
 

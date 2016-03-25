@@ -6,5 +6,6 @@ namespace NGraphics.Custom.Parsers
   {
     double ReadNumber(XAttribute a);
     double ReadNumber(string raw);
+    double? ReadOptionalNumber(XAttribute a);
   }
 }

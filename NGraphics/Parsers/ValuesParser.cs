@@ -42,5 +42,12 @@ namespace NGraphics.Custom.Parsers
       }
       return m*v;
     }
+
+	public double? ReadOptionalNumber (XAttribute a)
+	{
+		if (a == null)
+			return null;
+		return ReadNumber (a.Value.Split(' ')[0]);
+	}
   }
 }

@@ -1,13 +1,48 @@
 ﻿namespace NGraphics.Custom.Models
 {
-    public class Font
-    {
-        public string Family = "Georgia";
-        public double Size = 16;
+	public class Font
+	{
+		string name = "Georgia";
 
-        public string Name
-        {
-            get { return Family; }
-        }
-    }
+		public Font ()
+		{
+			Size = 16;
+		}
+
+		public Font (string name, double size)
+		{
+			this.name = name;
+			this.Size = size;
+		}
+
+		public string Name { get { return name; } set { name = value; } }
+		public string Family { get { return name; } set { name = value; } }
+
+		public double Size { get; set; }
+
+		public Font WithFamily (string family)
+		{
+			return new Font (family, Size);
+		}
+
+		public Font WithStyle (string style)
+		{
+			return this;
+		}
+
+		public Font WithWeight (string weight)
+		{
+			return this;
+		}
+
+		public Font WithSize (double newSize)
+		{
+			return new Font (Name, newSize);
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("Font(\"{0}\", {1})", Name, Size);
+		}
+	}
 }

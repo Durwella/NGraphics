@@ -118,5 +118,51 @@ namespace NGraphics.Custom
 				return TextAlignment.Left;
 			}
 		}
+
+		public static void ReadTextSpans (Text txt, XElement e)
+		{
+			foreach (XNode c in e.Nodes ()) {
+				if (c.NodeType == XmlNodeType.Text) {
+					txt.Spans.Add (new TextSpan (((XText)c).Value));
+				} else if (c.NodeType == XmlNodeType.Element) {
+					var ce = (XElement)c;
+					if (ce.Name.LocalName == "tspan") {
+						var tspan = new TextSpan (ce.Value);
+						var valuesParser = new ValuesParser ();
+						var x = valuesParser.ReadOptionalNumber (ce.Attribute ("x"));
+						var y = valuesParser.ReadOptionalNumber (ce.Attribute ("y"));
+						if (x.HasValue && y.HasValue) {
+							tspan.Position = new Point (x.Value, y.Value);
+						}
+
+						var font = txt.Font;
+
+						var ffamily = ReadTextFontFamily (ce);
+						if (!string.IsNullOrWhiteSpace (ffamily)) {
+							font = font.WithFamily (ffamily);
+						}
+						var fweight = ReadTextFontWeight (ce);
+						if (!string.IsNullOrWhiteSpace (fweight)) {
+							font = font.WithWeight (fweight);
+						}
+						var fstyle = ReadTextFontStyle (ce);
+						if (!string.IsNullOrWhiteSpace (fstyle)) {
+							font = font.WithStyle (fstyle);
+						}
+						var fsize = ReadTextFontSize (ce);
+						if (fsize > 0) {
+							font = font.WithSize (fsize);
+						}
+
+						if (font != txt.Font) {
+							tspan.Font = font;
+						}
+
+						txt.Spans.Add (tspan);
+					}
+				}
+			}
+			txt.Trim ();
+		}
 	}
 }
