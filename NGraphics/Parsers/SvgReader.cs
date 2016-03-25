@@ -120,8 +120,16 @@ namespace NGraphics.Custom.Parsers
           var y = _valuesParser.ReadNumber(e.Attribute("y"));
           var text = e.Value.Trim();
           var font = new Font();
+		  var fontFamily = TextParser.ReadTextFontFamily(e);
+		  if (!string.IsNullOrEmpty(fontFamily))
+			font.Family = fontFamily;
+		  var fontSize = TextParser.ReadTextFontSize(e);
+		  if (fontSize >= 0)
+			font.Size = fontSize;
+		  var textAlignment = TextParser.ReadTextAlignment(e);
+
           element = new Text(text, new Rect(new Point(x, y), new Size(double.MaxValue, double.MaxValue)), font,
-            TextAlignment.Left, pen, baseBrush);
+            textAlignment, pen, baseBrush);
         }
           break;
         case "rect":

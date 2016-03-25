@@ -103,6 +103,7 @@
     <Compile Include="Models\Elements\Text.cs" />
     <Compile Include="Models\Elements\Element.cs" />
     <Compile Include="Models\Font.cs" />
+    <Compile Include="Parsers\TextParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
