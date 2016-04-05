@@ -173,7 +173,7 @@ namespace NGraphics.Android.Custom
         paint.TextAlign = Paint.Align.Right;
 
       paint.TextSize = (float) font.Size;
-      var typeface = Typeface.Create(font.Family, TypefaceStyle.Normal);
+      var typeface = Typeface.Create(font.Family, font.IsBold ? TypefaceStyle.Bold : TypefaceStyle.Normal);
       paint.SetTypeface(typeface);
 
       return paint;

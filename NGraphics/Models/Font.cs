@@ -17,6 +17,7 @@
 
 		public string Name { get { return name; } set { name = value; } }
 		public string Family { get { return name; } set { name = value; } }
+		public bool IsBold { get; set; } = false;
 
 		public double Size { get; set; }
 
@@ -32,12 +33,14 @@
 
 		public Font WithWeight (string weight)
 		{
+			this.IsBold = (weight == "bold");
 			return this;
 		}
 
 		public Font WithSize (double newSize)
 		{
-			return new Font (Name, newSize);
+			this.Size = newSize;
+			return this;
 		}
 
 		public override string ToString ()

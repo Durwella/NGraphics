@@ -279,8 +279,12 @@ namespace NGraphics.iOS.Custom
 				#endif
 			if (availableFonts != null && availableFonts.Length > 0)
 				context.SelectFont (font.Name, (nfloat)font.Size, CGTextEncoding.MacRoman);
-			else
-				context.SelectFont ("Georgia", (nfloat)font.Size, CGTextEncoding.MacRoman);
+			else {
+				if (font.IsBold)
+					context.SelectFont ("Georgia-Bold", (nfloat)font.Size, CGTextEncoding.MacRoman);
+				else
+					context.SelectFont ("Georgia", (nfloat)font.Size, CGTextEncoding.MacRoman);
+			}
 
 			context.ShowTextAtPoint ((nfloat)frame.X, (nfloat)frame.Y, text);
 
