@@ -50,7 +50,7 @@ namespace NGraphics.Custom
 					var style = element.Attribute("style");
 					if (style != null && !string.IsNullOrWhiteSpace(style.Value))
 					{
-						value = GetString(ParseStyle(style.Value), "attr");
+						value = GetString(ParseStyle(style.Value), attr);
 					}
 				}
 			}
@@ -138,18 +138,22 @@ namespace NGraphics.Custom
 						var font = txt.Font;
 
 						var ffamily = ReadTextFontFamily (ce);
+						ffamily = string.IsNullOrWhiteSpace (ffamily) ? ReadTextFontFamily (e) : ffamily;
 						if (!string.IsNullOrWhiteSpace (ffamily)) {
 							font = font.WithFamily (ffamily);
 						}
 						var fweight = ReadTextFontWeight (ce);
+						fweight = string.IsNullOrWhiteSpace (fweight) ? ReadTextFontWeight (e) : fweight;
 						if (!string.IsNullOrWhiteSpace (fweight)) {
 							font = font.WithWeight (fweight);
 						}
 						var fstyle = ReadTextFontStyle (ce);
+						fstyle = string.IsNullOrWhiteSpace (fstyle) ? ReadTextFontStyle (e) : fstyle;
 						if (!string.IsNullOrWhiteSpace (fstyle)) {
 							font = font.WithStyle (fstyle);
 						}
 						var fsize = ReadTextFontSize (ce);
+						fsize = fsize <= 0 ? ReadTextFontSize (e) : fsize;
 						if (fsize > 0) {
 							font = font.WithSize (fsize);
 						}
